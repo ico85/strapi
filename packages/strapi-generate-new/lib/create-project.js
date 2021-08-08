@@ -16,6 +16,7 @@ const createDatabaseConfig = require('./resources/templates/database.js');
 const createServerConfig = require('./resources/templates/server.js');
 
 module.exports = async function createProject(scope, { client, connection, dependencies }) {
+  console.log(`Creating a new Strapi application at ${chalk.green(scope.rootPath)}.`);
   console.log('Creating files.');
 
   const { rootPath } = scope;
@@ -44,6 +45,7 @@ module.exports = async function createProject(scope, { client, connection, depen
         strapiVersion: scope.strapiVersion,
         projectName: _.kebabCase(scope.name),
         uuid: scope.uuid,
+        packageJsonStrapi: scope.packageJsonStrapi,
       }),
       {
         spaces: 2,
