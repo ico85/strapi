@@ -57,10 +57,13 @@ const loadOverwrites = async extensionsDir => {
     const propPath = filePathToPath(file);
     const strPath = propPath.join('.');
 
+    // [AV] Need to add __filename__ property to a model.
+    // If a model does not exist in original plugin, missing filename will break ContentType Builder
+    // createBuilder method requires this property to function correctly
     if (overwrites[strPath]) {
-      _.merge(overwrites[strPath], mod);
+      _.merge(overwrites[strPath], {...mod, __filename__: path.basename(file)});
     } else {
-      overwrites[strPath] = mod;
+      overwrites[strPath] = {...mod, __filename__: path.basename(file)};
     }
   });
 
